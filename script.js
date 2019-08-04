@@ -1,5 +1,7 @@
 const axios = require('axios');
+const request = require('request');
 const cheerio = require('cheerio');
+const readline = require('readline');
 const fs = require('fs');
 
 const writeStream = fs.createWriteStream('cyber-sleuth.json');
@@ -8,7 +10,7 @@ const writeStream = fs.createWriteStream('cyber-sleuth.json');
 //writeStream.write('Title,Link,Date \n');
 
 var index = 1;
-const dbSize = 341;
+const dbSize = 342;
 var db = [];
 var url = 'http://digidb.io/digimon-search/?request=' + index;
 
@@ -82,4 +84,41 @@ function setupDB(html){
     return digimon;
 }
 
+function setupImage(html){
+    const $ = cheerio.load(html);
+    var imageLocation = $('#topimg').attr('src');
+    request.get({url: imageLocation, encoding: null}, function (err, response, body) {
+    fs.writeFile("data/images/"+index+".png", body, 'binary', function(err) {
+    if(err)
+      console.log(err);
+    else
+      console.log("The file was saved!");
+  }); 
+});
+}
+
 loadDigimon();
+var rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+var running = true;
+while(running){
+    rl.question("1. Rebuild Digimon Databse for Cyber Sleuth \n 2. Rebuild Image Databse for Cyber Sleuth \n 3. Quit \n", function(answer) {
+    // TODO: Log the answer in a database
+    if(answer == "1"){
+        loadDigimon();
+       }
+    else if(answer == "2"){
+
+    }
+    else if(answer == "3"){
+        running = false;
+        rl.close();
+    }
+    else{
+        console.log("I could not understand your choice: ", answer);
+    }
+  });
+}
