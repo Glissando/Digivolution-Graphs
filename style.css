@@ -4,9 +4,13 @@ html, body {
     height: 100%;
     background-color: #cccccc;
 }
+label {
+    color: #e4e013;
+    display: block;
+}
 node {
     background-color: green;
-  }
+}
 #cy {
     width: 100%;
     height: 100%;

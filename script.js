@@ -22,6 +22,7 @@ function loadDigimon() {
             index++;
             if(index==dbSize){
                 writeStream.write(JSON.stringify(db));
+                index = 0;
                 console.log("\nFinished Updating database");
             }
             else{
@@ -84,41 +85,68 @@ function setupDB(html){
     return digimon;
 }
 
-function setupImage(html){
+function loadImages() {
+    axios.get(url)
+        .then(response => {
+            var html = response.data;
+            setupImage(html,index);
+            index++;
+            if(index==dbSize){
+                console.log("\nFinished Updating images");
+                index = 0;
+            }
+            else{
+                url = 'http://digidb.io/digimon-search/?request=' + index;
+                loadImages();
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+function setupImage(html,index){
     const $ = cheerio.load(html);
-    var imageLocation = $('#topimg').attr('src');
+    var imageLocation = $('.topimg').attr('src');
+    console.log(imageLocation);
     request.get({url: imageLocation, encoding: null}, function (err, response, body) {
-    fs.writeFile("data/images/"+index+".png", body, 'binary', function(err) {
+    fs.writeFile("images/digimon/"+index+".png", body, 'binary', function(err) {
     if(err)
       console.log(err);
     else
-      console.log("The file was saved!");
+      console.log("The file was saved as " + index + ".png!");
   }); 
 });
 }
 
-loadDigimon();
-var rl = readline.createInterface({
+
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
+  
+  rl.question('What do you think of Node.js? ', (answer) => {
+    console.log('Thank you for your valuable feedback:', answer);
+    rl.close();
+  });
 
-var running = true;
-while(running){
-    rl.question("1. Rebuild Digimon Databse for Cyber Sleuth \n 2. Rebuild Image Databse for Cyber Sleuth \n 3. Quit \n", function(answer) {
+function input(){
+    rl.question("1. Rebuild Digimon Database for Cyber Sleuth \n 2. Rebuild Image Database for Cyber Sleuth \n 3. Quit \n", function(answer) {
     // TODO: Log the answer in a database
-    if(answer == "1"){
-        loadDigimon();
-       }
-    else if(answer == "2"){
-
-    }
-    else if(answer == "3"){
-        running = false;
-        rl.close();
-    }
-    else{
-        console.log("I could not understand your choice: ", answer);
-    }
+        if(answer == "1"){
+            loadDigimon();
+        }
+        else if(answer == "2"){
+            loadImages();
+        }
+        else if(answer == "3"){
+            rl.close();
+        }
+        else{
+            console.log("I could not understand your choice: ", answer);
+        }
   });
 }
+
+loadImages();
+//input();
