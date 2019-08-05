@@ -4,12 +4,6 @@ A webapplication for graphing digimon evolutions in digimon games, currently Dig
 
 [Link]()
 
-## Table of Contents
-- [Digimon Evolutions Graph](#digimon-evolutions-graph)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction <img src="images/illustration/Luche.png" width="35">](#introduction-img-src%22imagesillustrationluchepng%22-width%2235%22)
-  - [Information](#information)
-  - [Credits](#credits)
 
 ## Introduction <img src="images/illustration/Luche.png" width="35">
 This is an application for analyzing information in digimon games. Currently cyber sleuth is the only supported game.
