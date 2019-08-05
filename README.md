@@ -1,12 +1,12 @@
 # Digimon Evolutions Graph
 
-A webapplication for graphing digimon evolutions in digimon games, currently Digimon Cyber Sleuth is the only supported game.
+A web-application for graphing digimon evolutions in digimon games, currently Digimon Cyber Sleuth is the only supported game.
 
-[Link]()
+[Link](https://glissando.github.io/Digivolution-Graphs/)
 
 
 ## Introduction <img src="images/illustration/Luche.png" width="35">
-This is an application for analyzing information in digimon games. Currently cyber sleuth is the only supported game.
+This is an application for analyzing digivolutions in digimon games. Currently cyber sleuth is the only supported game. This tool was made for personal use in gameplays.
 
 ## Information 
 
