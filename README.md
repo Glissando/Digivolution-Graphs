@@ -24,8 +24,8 @@ Interesting details I learned from this project were that.
 1. Megas are the most populated stage of digimon evolution, followed by champions and ultimates.
 2. Virus digimon are the most promiment in the game with them totaling around 112(33%), vaccine and data following them with 97(28%) and 81(24%) total digimon respectively.
 3. The distance between nodes is fairly uniform.
-4. Champion and Ultimate digimon are [central](https://en.wikipedia.org/wiki/Centrality) to the graph.
-5. The graph is [connected](https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_graph) Meaning every single vertex there is path between every single vertex. Which for the game means any digimon can become any other digimon.
+4. Champion and ultimate digimon are [central](https://en.wikipedia.org/wiki/Centrality) to the graph.
+5. The graph is [connected](https://en.wikipedia.org/wiki/Connectivity_(graph_theory)#Connected_graph) meaning there is a path between every single vertex. Which for the game means any digimon can become any other digimon.
 
 ## Credits
 All the data used in this project was obtained from [DigiDB](http://digidb.io/)
