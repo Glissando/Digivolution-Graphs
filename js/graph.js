@@ -94,7 +94,6 @@ var layouts = [function(){
     name: 'circle',
     spacingFactor: 2
   });
-  console.log('hey');
   layout.run(); 
 },
 function(){
@@ -121,7 +120,6 @@ request.responseType = 'json';
 request.send();
 request.onload = function() {
     db = request.response;
-    console.log(db);
     cy = cytoscape({
       container: document.getElementById('cy'),
     
@@ -144,37 +142,43 @@ request.onload = function() {
             'background-image': function(ele){ return ele.data().img; },
             'background-fit': 'contain'
           }
+        },
+        {
+          selector: '.highlight',
+          style: {
+            'padding': '3px'
+          }
+        },
+        {
+          selector: '.selected',
+          style: {
+            'border-style': 'solid',
+            'border-width': '3px',
+            'border-color': 'green'
+          }
         }
       ]
     });
-    console.log(cy.nodes()[0].id());
-    path(cy.nodes()[183], cy.nodes()[327]);
+    path(cy.nodes()[0], cy.nodes()[327]);
     
     cy.cxtmenu({
-      selector: 'node, edge',
+      selector: 'node',
 
       commands: [
         {
-          content: '<span class="fa fa-flash fa-2x"></span>',
+          content: 'Neighbours',
           select: function(ele){
-            console.log( ele.id() );
+            ele.outgoers().select();
           }
         },
 
         {
-          content: '<span class="fa fa-star fa-2x"></span>',
+          content: 'Select All',
           select: function(ele){
-            console.log( ele.data('name') );
+            cy.$('node').select();
+            cy.$('edge').select();
           },
-          enabled: false
         },
-
-        {
-          content: 'Text',
-          select: function(ele){
-            console.log( ele.position() );
-          }
-        }
       ]
     });
 
@@ -214,18 +218,29 @@ request.onload = function() {
       var label = document.getElementById('digimon');
       var data = node.data();
       label.innerHTML = node.id() + " | " + data.info[0] + " | " + data.info[1] + " | " + data.info[2] + " | " + data.info[3];
+      node.addClass('selected');
     });
-
-    cy.on('mouseover', 'node', function(e){
-      var sel = e.cyTarget;
-      cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
-      sel.addClass('highlight').outgoers().addClass('highlight');
-  });
-  cy.on('mouseout', 'node', function(e){
-      var sel = e.cyTarget;
+    cy.on('unselect', 'node', function(e){
+      var sel = e.target;
+      if(sel == null)
+        return;
       cy.elements().removeClass('semitransp');
-      sel.removeClass('highlight').outgoers().removeClass('highlight');
-  });
+      sel.removeClass('selected');
+    });
+    cy.on('mouseover', 'node', function(e){
+      var sel = e.target;
+      if(sel == null)
+        return;
+      cy.elements().difference(sel.outgoers()).not(sel).addClass('semitransp');
+      sel.addClass('highlight');
+    });
+    cy.on('mouseout', 'node', function(e){
+      var sel = e.target;
+      if(sel == null)
+        return;
+      cy.elements().removeClass('semitransp');
+      sel.removeClass('highlight');
+    });
 }
 
 
@@ -238,7 +253,6 @@ function path(a, b){
     str += s.substring(s.indexOf(' ') + 1) + ((i == path.length - 1) ? '' : ' > ');
   }
   document.getElementById('info').innerHTML = str;
-  console.log(str);
   aStar.path.select();
 }
 

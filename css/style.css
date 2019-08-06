@@ -7,6 +7,12 @@ html, body {
 label {
     color: #e4e013;
     display: block;
+    position:absolute;
+    font-size: 18px;
+}
+
+#digimon {
+    margin-top:2%;
 }
 node {
     background-color: green;
