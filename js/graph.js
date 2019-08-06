@@ -138,6 +138,7 @@ request.onload = function() {
           selector: 'node',
           style: {
             'label': 'data(id)',
+            'color': '#ffffff',
             'background-color': '#ffffff',
             'background-image': function(ele){ return ele.data().img; },
             'background-fit': 'contain'
