@@ -214,7 +214,7 @@ request.onload = function() {
       ]
     });
 
-    cy.on('tap', 'node', function(evt){
+    cy.on('select', 'node', function(evt){
       var node = evt.target;
       var label = document.getElementById('digimon');
       var data = node.data();
