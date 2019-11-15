@@ -16,7 +16,7 @@ Shift(Hold)+LMB(Hold) | Marquee selection
 MMB(Middle Mouse Button) | Zoom in/out
 
 ## Introduction <img src="images/illustration/Luche.png" width="35">
-This is an application for analyzing digivolutions in digimon games. Currently Cyber Sleuth is the only supported game. This tool was made for personal use in gameplays.
+This is an application for analyzing digivolutions in digimon games. This tool was made for personal use in gameplays.
 
 ## Information 
 
